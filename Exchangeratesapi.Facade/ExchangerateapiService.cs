@@ -16,31 +16,24 @@ namespace ExchangeCurrency.Domain.Services
 {
     public class ExchangerateapiService : IExchangerateapiService
     {
-        private readonly IExchangerateapiService _exchangeCurrencyService;
-        private readonly ExchangeratesapiConnect _connect;
-
         //CONSTRUTOR
-        public ExchangerateapiService(IConfiguration configuration, IHttpClientFactory httpClientFactory)
+        public ExchangerateapiService()
         {
-            _connect = new ExchangeratesapiConnect(configuration, httpClientFactory);
         }
 
         public async Task<CurrencyResponse> GetCurrencyAsync(object json)
         {
             try
             {
-                using (var client = _connect.GetClient())
-                {
-                    var requestUri = RestService.For<IExchangerateapiService>("https://api.exchangeratesapi.io/");
+                var requestUri = RestService.For<IExchangerateapiService>("https://api.exchangeratesapi.io/");
 
-                    var body = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
+                var body = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
 
-                    var obj = JsonConvert.DeserializeObject<CurrencyResponse>(json.ToString());
+                var obj = JsonConvert.DeserializeObject<CurrencyResponse>(json.ToString());
 
-                    var response = await requestUri.GetCurrencyAsync(obj.ToString());
+                var response = await requestUri.GetCurrencyAsync(obj.ToString());
 
-                   return response;
-                }
+                return response;
             }
 
             catch
