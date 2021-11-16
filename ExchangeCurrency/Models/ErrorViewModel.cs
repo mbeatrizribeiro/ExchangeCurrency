@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace ExchangeCurrency.Models
+namespace ExchangeCurrency.Api.Models
 {
     public class ErrorViewModel
     {

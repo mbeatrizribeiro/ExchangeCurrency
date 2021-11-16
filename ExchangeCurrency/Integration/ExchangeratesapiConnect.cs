@@ -1,13 +1,8 @@
-﻿using ExchangeCurrency.Domain.Models;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
 
-namespace Exchangeratesapi.Facade
+namespace ExchangeCurrency.Api.Integration
 {
     public class ExchangeratesapiConnect
     {
@@ -23,7 +18,7 @@ namespace Exchangeratesapi.Facade
         {
             var client = _httpClientFactory.CreateClient();
 
-            client.BaseAddress = new Uri(_configuration["api.exchangeratesapi.io/v1/convert"]);
+            client.BaseAddress = new Uri(_configuration["v1/convert"]);
 
             return client;
         }

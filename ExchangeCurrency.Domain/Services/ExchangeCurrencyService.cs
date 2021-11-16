@@ -1,11 +1,9 @@
-﻿using ExchangeCurrency.Domain.Models;
-using ExchangeCurrency.Domain.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using ExchangeCurrency.Domain.Services.Interfaces;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System;
-using System.Threading.Tasks;
 
-namespace ExchangeCurrency.Domain.Services
+namespace ExchangeCurrency.Api.Integration
 {
     public class ExchangeCurrencyService : IExchangeCurrencyService
     {
@@ -15,36 +13,42 @@ namespace ExchangeCurrency.Domain.Services
 
         }
 
-        public async Task<double> GetExchangeCurrency([FromBody] string from, [FromBody] string to, [FromBody] double amount, int profile)
+        public async Task<CurrencyResponse> GetExchangeCurrency(CurrencyRequest request, int profile)
         {
-            var request = new CurrencyRequest()
-            {
-                Amount = amount,
-                FromCurrency = from,
-                ToCurrency = to,
-            };
-
             var convertion = await _exchangerateapiService.GetCurrencyAsync(request);
 
-            var retorno = JsonConvert.DeserializeObject<CurrencyResponse>(convertion.Resultado.ToString());
+            var retorno = JsonConvert.DeserializeObject<CurrencyResponse>(convertion.ToString());
 
             if (profile == (int)EnumProfile.Varejo)
+
             {
-                retorno.Resultado = retorno.Resultado * request.TaxProfileVarejo;
-                return retorno.Resultado;
+                var returns = new CurrencyResponse()
+                {
+                    Resultado = retorno.Resultado * request.TaxProfileVarejo
+                };
+
+                return returns;
             }
 
             if (profile == (int)EnumProfile.Personnalite)
             {
-                retorno.Resultado = retorno.Resultado * request.TaxProfilePersonnalite;
-                return retorno.Resultado;
+                var returns = new CurrencyResponse()
+                {
+                    Resultado = retorno.Resultado * request.TaxProfilePersonnalite
+                };
+
+                return returns;
             }
 
 
             if (profile == (int)EnumProfile.Private)
             {
-                retorno.Resultado = retorno.Resultado * request.TaxProfilePrivate;
-                return retorno.Resultado;
+
+                var returns = new CurrencyResponse()
+                {
+                    Resultado = retorno.Resultado * request.TaxProfilePrivate
+                };
+                return returns;
             }
 
             else throw new Exception();

@@ -1,13 +1,14 @@
+using ExchangeCurrency.Api;
+using ExchangeCurrency.Api.Integration.Interface;
+using ExchangeCurrency.Api.Models;
+using ExchangeCurrency.Api.Models.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Refit;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ExchangeCurrency
 {
@@ -25,6 +26,10 @@ namespace ExchangeCurrency
             services.AddControllersWithViews();
             //Injeção de dependencia para o Http Cliente
             services.AddHttpClient();
+            //Injeção de depencencia para Services.
+            services.AddScoped<IExchangeCurrencyService, ExchangeCurrencyService>();
+            services.AddRefitClient<IExchangerateApi>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://api.exchangeratesapi.io/"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

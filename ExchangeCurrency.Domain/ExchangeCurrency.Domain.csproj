@@ -9,8 +9,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.2.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Exchangeratesapi.Facade\Exchangeratesapi.Facade.csproj" />
-  </ItemGroup>
-
 </Project>

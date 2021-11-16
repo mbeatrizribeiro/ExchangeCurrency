@@ -1,10 +1,7 @@
-﻿using ExchangeCurrency.Models;
+﻿using ExchangeCurrency.Api.Models.Enums;
+using ExchangeCurrency.Api.Models.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ExchangeCurrency.Controllers
@@ -12,6 +9,7 @@ namespace ExchangeCurrency.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IExchangeCurrencyService _exchangeCurrencyService;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -25,9 +23,11 @@ namespace ExchangeCurrency.Controllers
 
         public IActionResult Privacy()
         {
+
             return View();
         }
 
+        [HttpPost]
         public IActionResult Varejo()
         {
             return View();
@@ -46,7 +46,22 @@ namespace ExchangeCurrency.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
+
+        // GET api/<ConvertController>/5
+        [HttpGet]
+        [Route("Get")]
+        public async Task<IActionResult> Convert([FromForm] string from, [FromForm] string to, [FromForm] decimal amount, [FromRoute] EnumProfile profile)
+        {
+            if (ModelState.IsValid)
+            {
+                var retorno = await _exchangeCurrencyService.GetExchangeCurrency(from, to, amount, profile);
+                return Ok(retorno);
+            }
+
+            return RedirectToAction();
+        }
+
     }
 }
