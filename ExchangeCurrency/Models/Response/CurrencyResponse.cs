@@ -12,8 +12,4 @@ namespace ExchangeCurrency.Api.Models.Response
         public string Date { get; set; }
         public Dictionary<string, decimal> Rates { get; set; }
     }
-
-   
-
-    public record CurrencyViewModel(decimal Resultado);
 }

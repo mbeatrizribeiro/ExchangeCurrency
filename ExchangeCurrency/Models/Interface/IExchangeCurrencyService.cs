@@ -1,14 +1,15 @@
-﻿using ExchangeCurrency.Api.Models.Enums;
-using ExchangeCurrency.Api.Models.Response;
-using Refit;
+﻿using ExchangeCurrency.Api.Models.Response;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ExchangeCurrency.Api.Models.Interface
 {
-    public interface IExchangeCurrencyService
+    public interface IExchangeCurrencyService 
     {
        
-        Task<CurrencyViewModel> GetExchangeCurrency(string from, string to, decimal amount, EnumProfile profile);
+        Task<CurrencyViewModel> Handle(Varejo request, CancellationToken cancellationToken);
+        Task<CurrencyViewModel> Handle(Personnalite request, CancellationToken cancellationToken);
+        Task<CurrencyViewModel> Handle(Private request, CancellationToken cancellationToken);
 
     }
 

@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MediatR;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace ExchangeCurrency.Api.Models.Request
 {
-    public class CurrencyRequest
+    public class CurrencyRequest : IRequest<CurrencyRequest>
     {
         [Required]
         [JsonPropertyName("from")]

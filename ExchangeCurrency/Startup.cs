@@ -1,4 +1,3 @@
-using ExchangeCurrency.Api;
 using ExchangeCurrency.Api.Integration.Interface;
 using ExchangeCurrency.Api.Models;
 using ExchangeCurrency.Api.Models.Interface;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MediatR;
 using Refit;
 using System;
 
@@ -30,6 +30,7 @@ namespace ExchangeCurrency
             services.AddScoped<IExchangeCurrencyService, ExchangeCurrencyService>();
             services.AddRefitClient<IExchangerateApi>()
     .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://api.exchangeratesapi.io/"));
+            services.AddMediatR(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
