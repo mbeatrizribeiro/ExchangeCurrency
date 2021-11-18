@@ -19,7 +19,7 @@ namespace ExchangeCurrency.Api.Controllers
         [HttpPost("")]
         public async Task<IActionResult> Index([FromForm] CurrencyInputModel request)
         {
-            var retorno = await _exchangeCurrencyService.GetExchangeCurrency(request.FromCurrency, request.ToCurrency, request.Amount, EnumProfile.Private);
+            var retorno = await _exchangeCurrencyService.GetExchangeCurrency(request.FromCurrency, request.ToCurrency, request.Amount, request.Profile);
 
             return Ok(retorno);
         }

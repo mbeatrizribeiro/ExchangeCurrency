@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using ExchangeCurrency.Api.Models.Enums;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace ExchangeCurrency.Api.Models.Request
@@ -16,5 +17,7 @@ namespace ExchangeCurrency.Api.Models.Request
         [Required]
         [DisplayName("Quantidade")]
         public decimal Amount { get; set; }
+
+        public EnumProfile Profile { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ExchangeCurrency.Api.Models.Enums;
 using ExchangeCurrency.Api.Models.Interface;
+using ExchangeCurrency.Api.Models.Request;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -27,11 +28,32 @@ namespace ExchangeCurrency.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Varejo()
         {
             return View();
+        }  
+
+        //[HttpPost]
+        //public async Task<IActionResult> VarejoAsync([FromForm] CurrencyInputModel request)
+        //{
+        //    var retorno = await _exchangeCurrencyService.GetExchangeCurrency(request.FromCurrency, request.ToCurrency, request.Amount, request.Profile);
+
+        //    return Ok(retorno);
+        //}
+
+        public IActionResult Converter()
+        {
+            return View();
         }
+
+        //[HttpPost("")]
+        //public async Task<IActionResult> Converter([FromForm] CurrencyInputModel request)
+        //{
+        //    var retorno = await _exchangeCurrencyService.GetExchangeCurrency(request.FromCurrency, request.ToCurrency, request.Amount, request.Profile);
+
+        //    return Ok(retorno);
+        //}
 
         public IActionResult Personnalite()
         {
@@ -41,7 +63,7 @@ namespace ExchangeCurrency.Controllers
         public IActionResult Private()
         {
             return View();
-        }
+        } 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

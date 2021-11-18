@@ -2,8 +2,8 @@
 {
     public enum EnumProfile
     {
-        Varejo,
         Personnalite,
-        Private
+        Private,
+        Varejo
     }
 }
