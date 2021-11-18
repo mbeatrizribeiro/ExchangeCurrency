@@ -1,45 +1,58 @@
 using ExchangeCurrency.Api.Integration.Interface;
-using ExchangeCurrency.Api.Models;
+using ExchangeCurrency.Api.Models.Enums;
 using ExchangeCurrency.Api.Models.Interface;
+using ExchangeCurrency.Api.Models.Request;
 using ExchangeCurrency.Api.Models.Response;
 using NSubstitute;
+using System.Threading;
 using Xunit;
 
 namespace ExchangeCurrency.Tests
 {
     public class ExchangeCurrencyServiceTest
     {
-        private readonly IExchangeCurrencyService _exchangeCurrencyService;
-        private readonly IExchangerateApi _exchangerateApi;
+        private readonly IExchangeCurrencyService _exchangeCurrencyService = Substitute.For<IExchangeCurrencyService>();
+        private readonly IExchangerateApi _exchangerateApi = Substitute.For<IExchangerateApi>();
+
+        const string symbols = "USD,BRL";
 
         [Fact]
-        public void DadoUmaSolicitacaoConversaoSemParametros_QuandoConverterMoeda_EntaoVerificarMoedasConversao()
+        public void DadoUmaSolicitacaoConversao_QuandoConverterMoedaPerfil_EntaoReceberMoedasDeConversao()
         {
             //Arrange
-            const string symbols = "USD,BRL";
-            
-            var exchangeRateApi = Substitute.For<IExchangerateApi>();
+            const int amount = 2;
+            EnumProfile profile = EnumProfile.Personnalite;
 
-            //Act
+            CurrencyInputModel request = new CurrencyInputModel
+            {
+                Amount = amount,
+                Profile = profile
+            };
+
+            //act 
+            _exchangerateApi.GetCurrencyAsync(symbols);
 
             //Assert
-            exchangeRateApi.DidNotReceive().GetCurrencyAsync(Arg.Any<string>());
+            Assert.Equal(request.FromCurrency, request.ToCurrency);
         }
 
-        //public void DadoUmaSolicitacaoConversaoVarejo_QuandoConverterMoedaPerfilVarejo_EntaoRetornarValorDeConversaoComTaxas() 
-        //{
-        //    //Arrange
-        //    var varejo = new Varejo() { };
+        [Fact]
+        public void DadoUmaSolicitacaoConversaoComPerfilIndicado_QuandoConverterMoeda_EntaoRetornarConversaoMoedasComTaxa()
+        {
+            //Arrange
+            const decimal resultado = 2;
+            Personnalite profile = new Personnalite();
 
-        //    IExchangerateApi api = Substitute.For<IExchangerateApi>();
+            CurrencyViewModel response = new CurrencyViewModel(resultado)
+            {
+                Resultado = resultado + resultado * profile.Tax,
+            };
 
-        //    IExchangeCurrencyService service = Substitute.For<IExchangeCurrencyService>();
+            //act 
+            _exchangeCurrencyService.Handle(Arg.Any<CurrencyInputModel>(), Arg.Any<CancellationToken>()).Returns(response);
 
-        //    api.GetCurrencyAsync(Arg.Any<string>()).Returns<CurrencyViewModel>;
-
-        //    //Act
-
-        //    //Assert
-        //}
+            //Assert
+            Assert.Equal(resultado + (resultado * profile.Tax), response.Resultado);
+        }
     }
 }
