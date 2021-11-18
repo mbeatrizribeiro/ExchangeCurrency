@@ -1,6 +1,4 @@
-﻿using ExchangeCurrency.Api.Models;
-using ExchangeCurrency.Api.Models.Enums;
-using ExchangeCurrency.Api.Models.Interface;
+﻿using ExchangeCurrency.Api.Models.Interface;
 using ExchangeCurrency.Api.Models.Request;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -22,9 +20,10 @@ namespace ExchangeCurrency.Api.Controllers
 
 
         [HttpPost("")]
-        public async Task<IActionResult> Index([FromForm] Varejo request)
+        public async Task<IActionResult> Index([FromForm] CurrencyInputModel request)
         {
             CancellationToken token = default;
+
             var retorno = await _exchangeCurrencyService.Handle(request, token);
 
             return Ok(retorno);

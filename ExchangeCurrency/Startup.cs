@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using MediatR;
 using Refit;
 using System;
+using ExchangeCurrency.Api.Models.Handlers;
 
 namespace ExchangeCurrency
 {
