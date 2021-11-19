@@ -23,5 +23,6 @@ namespace ExchangeCurrency.Api.Controllers
 
             return Ok(retorno);
         }
+
     }
 }
