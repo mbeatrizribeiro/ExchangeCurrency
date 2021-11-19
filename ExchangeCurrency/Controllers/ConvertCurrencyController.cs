@@ -1,5 +1,4 @@
-﻿using ExchangeCurrency.Api.Models.Interface;
-using ExchangeCurrency.Api.Models.Request;
+﻿using ExchangeCurrency.Api.Models.Request;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,7 +16,7 @@ namespace ExchangeCurrency.Api.Controllers
 
 
         [HttpPost("")]
-        public async Task<IActionResult> Index([FromForm] CurrencyInputModel request)
+        public async Task<IActionResult> Index([FromForm] ExchangeCurrencyRequest request)
         {
             var retorno = await _mediator.Send(request);
 

@@ -1,6 +1,6 @@
 ﻿namespace ExchangeCurrency.Api.Models.Request
 {
-    public class Private : CurrencyInputModel
+    public class Private : ExchangeCurrencyRequest
     {
         public decimal tax = 0.9M;
 

@@ -1,6 +1,6 @@
+using ExchangeCurrency.Api.Handlers.Interface;
 using ExchangeCurrency.Api.Integration.Interface;
 using ExchangeCurrency.Api.Models.Enums;
-using ExchangeCurrency.Api.Models.Interface;
 using ExchangeCurrency.Api.Models.Request;
 using ExchangeCurrency.Api.Models.Response;
 using NSubstitute;
@@ -11,7 +11,7 @@ namespace ExchangeCurrency.Tests
 {
     public class ExchangeCurrencyServiceTest
     {
-        private readonly IExchangeCurrencyService _exchangeCurrencyService = Substitute.For<IExchangeCurrencyService>();
+        private readonly IExchangeCurrencyRequestHandler _exchangeCurrencyService = Substitute.For<IExchangeCurrencyRequestHandler>();
         private readonly IExchangerateApi _exchangerateApi = Substitute.For<IExchangerateApi>();
 
         const string symbols = "USD,BRL";
@@ -23,7 +23,7 @@ namespace ExchangeCurrency.Tests
             const int amount = 2;
             EnumProfile profile = EnumProfile.Personnalite;
 
-            CurrencyInputModel request = new CurrencyInputModel
+            ExchangeCurrencyRequest request = new ExchangeCurrencyRequest
             {
                 Amount = amount,
                 Profile = profile
@@ -49,7 +49,7 @@ namespace ExchangeCurrency.Tests
             };
 
             //act 
-            _exchangeCurrencyService.Handle(Arg.Any<CurrencyInputModel>(), Arg.Any<CancellationToken>()).Returns(response);
+            _exchangeCurrencyService.Handle(Arg.Any<ExchangeCurrencyRequest>(), Arg.Any<CancellationToken>()).Returns(response);
 
             //Assert
             Assert.Equal(resultado + (resultado * profile.Tax), response.Resultado);

@@ -4,23 +4,23 @@ using ExchangeCurrency.Api.Models.Response;
 using ExchangeCurrency.Api.Models.Request;
 using MediatR;
 using System.Threading;
-using ExchangeCurrency.Api.Models.Interface;
 using ExchangeCurrency.Api.Models.Enums;
 using System;
+using ExchangeCurrency.Api.Handlers.Interface;
 
-namespace ExchangeCurrency.Api.Models.Handlers
+namespace ExchangeCurrency.Api.Handlers
 {
-    public class ExchangeCurrencyService : IExchangeCurrencyService, IRequestHandler<CurrencyInputModel, CurrencyViewModel>
+    public class ExchangeCurrencyRequestHandler : IExchangeCurrencyRequestHandler, IRequestHandler<ExchangeCurrencyRequest, CurrencyViewModel>
     {
         private readonly IExchangerateApi _exchangerateApi;
 
-        public ExchangeCurrencyService(IExchangerateApi exchangerateApi)
+        public ExchangeCurrencyRequestHandler(IExchangerateApi exchangerateApi)
         {
             _exchangerateApi = exchangerateApi;
         }
 
 
-        public async Task<CurrencyViewModel> Handle(CurrencyInputModel request, CancellationToken cancellationToken)
+        public async Task<CurrencyViewModel> Handle(ExchangeCurrencyRequest request, CancellationToken cancellationToken)
         {
             var retorno = await _exchangerateApi.GetCurrencyAsync($"{request.FromCurrency},{request.ToCurrency}");
 
@@ -36,7 +36,7 @@ namespace ExchangeCurrency.Api.Models.Handlers
                     ToCurrency = request.ToCurrency
                 };
 
-                return new CurrencyViewModel(calculo + (calculo * varejo.tax));
+                return new CurrencyViewModel(calculo + calculo * varejo.tax);
             }
 
             else if (request.Profile == EnumProfile.Personnalite)
@@ -49,7 +49,7 @@ namespace ExchangeCurrency.Api.Models.Handlers
                     ToCurrency = request.ToCurrency
                 };
 
-                return new CurrencyViewModel(calculo + (calculo * personnalite.tax));
+                return new CurrencyViewModel(calculo + calculo * personnalite.tax);
             }
 
             else if (request.Profile == EnumProfile.Private)
@@ -62,7 +62,7 @@ namespace ExchangeCurrency.Api.Models.Handlers
                     ToCurrency = request.ToCurrency
                 };
 
-                return new CurrencyViewModel(calculo + (calculo * privateProfile.tax));
+                return new CurrencyViewModel(calculo + calculo * privateProfile.tax);
             }
 
             throw new Exception("Profile não encontrado");

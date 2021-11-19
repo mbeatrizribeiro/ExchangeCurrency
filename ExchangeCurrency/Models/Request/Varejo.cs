@@ -1,6 +1,6 @@
 ﻿namespace ExchangeCurrency.Api.Models.Request
 {
-    public class Varejo : CurrencyInputModel
+    public class Varejo : ExchangeCurrencyRequest
     {
 
         public Varejo()

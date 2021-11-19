@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExchangeCurrency.Api.Models.Request 
 {
-    public class CurrencyInputModel : Attribute, IRequest<CurrencyViewModel>
+    public class ExchangeCurrencyRequest : Attribute, IRequest<CurrencyViewModel>
     {
         [Required]
         [DisplayName("De")]

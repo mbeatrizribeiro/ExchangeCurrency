@@ -1,6 +1,4 @@
 using ExchangeCurrency.Api.Integration.Interface;
-using ExchangeCurrency.Api.Models;
-using ExchangeCurrency.Api.Models.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +7,8 @@ using Microsoft.Extensions.Hosting;
 using MediatR;
 using Refit;
 using System;
-using ExchangeCurrency.Api.Models.Handlers;
+using ExchangeCurrency.Api.Handlers.Interface;
+using ExchangeCurrency.Api.Handlers;
 
 namespace ExchangeCurrency
 {
@@ -25,12 +24,10 @@ namespace ExchangeCurrency
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            //Injeção de dependencia para o Http Cliente
             services.AddHttpClient();
-            //Injeção de depencencia para Services.
-            services.AddScoped<IExchangeCurrencyService, ExchangeCurrencyService>();
+            services.AddScoped<IExchangeCurrencyRequestHandler, ExchangeCurrencyRequestHandler>();
             services.AddRefitClient<IExchangerateApi>()
-    .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://api.exchangeratesapi.io/"));
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://api.exchangeratesapi.io/"));
             services.AddMediatR(typeof(Startup));
         }
 
