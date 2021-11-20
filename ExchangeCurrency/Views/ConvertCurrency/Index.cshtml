@@ -1,6 +1,25 @@
 ﻿@model ExchangeCurrency.Api.Models.Response.CurrencyResponse
 
-@{
+@*@{
     ViewBag.Title = "Index";
-}
+}*@
 
+<!-- Moeda Convertida -->
+<section class="page-section bg-primary" onclick="converter">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center h-100">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-white mt-0">Resultado Conversão</h2>
+                <hr class="divider divider-light" />
+                <p class="text-white-75 mb-3" value="@ViewBag.Retorno">Valor: @ViewBag.Retorno</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="col-lg-4 text-center mb-5 mb-lg-0">
+        <i class="bi-phone fs-2 mb-3 text-muted"></i>
+        <div><b>SAC</b> (0800 728 0728)</div>
+    </div>
+</div>

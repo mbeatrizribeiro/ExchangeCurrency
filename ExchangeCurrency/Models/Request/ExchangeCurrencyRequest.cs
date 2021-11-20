@@ -22,5 +22,7 @@ namespace ExchangeCurrency.Api.Models.Request
         public decimal Amount { get; set; }
 
         public EnumProfile Profile { get; set; }
+
     }
-}
+
+ }

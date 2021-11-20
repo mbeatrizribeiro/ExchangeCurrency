@@ -41,7 +41,8 @@ namespace ExchangeCurrency.Tests
         {
             //Arrange
             const decimal resultado = 2;
-            Personnalite profile = new Personnalite();
+
+            ProfileRequest profile = new ProfileRequest();
 
             CurrencyViewModel response = new CurrencyViewModel(resultado)
             {

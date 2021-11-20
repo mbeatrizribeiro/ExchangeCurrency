@@ -20,7 +20,11 @@ namespace ExchangeCurrency.Api.Controllers
         {
             var retorno = await _mediator.Send(request);
 
-            return Ok(retorno);
+            Ok(retorno);
+
+            ViewBag.Retorno = retorno.Resultado.ToString();
+
+            return View();
         }
 
     }

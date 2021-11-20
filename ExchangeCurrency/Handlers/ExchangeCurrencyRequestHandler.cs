@@ -4,19 +4,20 @@ using ExchangeCurrency.Api.Models.Response;
 using ExchangeCurrency.Api.Models.Request;
 using MediatR;
 using System.Threading;
-using ExchangeCurrency.Api.Models.Enums;
-using System;
 using ExchangeCurrency.Api.Handlers.Interface;
+using ExchangeCurrency.Api.Models;
 
 namespace ExchangeCurrency.Api.Handlers
 {
     public class ExchangeCurrencyRequestHandler : IExchangeCurrencyRequestHandler, IRequestHandler<ExchangeCurrencyRequest, CurrencyViewModel>
     {
         private readonly IExchangerateApi _exchangerateApi;
+        private readonly ITaxPerProfileService _taxPerProfileService;
 
-        public ExchangeCurrencyRequestHandler(IExchangerateApi exchangerateApi)
+        public ExchangeCurrencyRequestHandler(IExchangerateApi exchangerateApi, ITaxPerProfileService taxPerProfileService)
         {
             _exchangerateApi = exchangerateApi;
+            _taxPerProfileService = taxPerProfileService;
         }
 
 
@@ -24,48 +25,21 @@ namespace ExchangeCurrency.Api.Handlers
         {
             var retorno = await _exchangerateApi.GetCurrencyAsync($"{request.FromCurrency},{request.ToCurrency}");
 
+            TaxPerProfileResponse valorTaxa = new TaxPerProfileResponse()
+            {
+               Profile = request.Profile
+            };
+
+            var taxaProfile = _taxPerProfileService.GetTax(valorTaxa);
+                
+
             var calculo = retorno.Content.Rates[request.FromCurrency] * request.Amount / retorno.Content.Rates[request.ToCurrency];
 
-            if (request.Profile == EnumProfile.Varejo)
-            {
+            var calculoItau = calculo * (1 + taxaProfile);
 
-                Varejo varejo = new Varejo()
-                {
-                    Amount = request.Amount,
-                    FromCurrency = request.FromCurrency,
-                    ToCurrency = request.ToCurrency
-                };
+            var valor = decimal.Round(calculoItau, 2);
 
-                return new CurrencyViewModel(calculo + calculo * varejo.tax);
-            }
-
-            else if (request.Profile == EnumProfile.Personnalite)
-            {
-
-                Personnalite personnalite = new Personnalite()
-                {
-                    Amount = request.Amount,
-                    FromCurrency = request.FromCurrency,
-                    ToCurrency = request.ToCurrency
-                };
-
-                return new CurrencyViewModel(calculo + calculo * personnalite.tax);
-            }
-
-            else if (request.Profile == EnumProfile.Private)
-            {
-
-                Private privateProfile = new Private()
-                {
-                    Amount = request.Amount,
-                    FromCurrency = request.FromCurrency,
-                    ToCurrency = request.ToCurrency
-                };
-
-                return new CurrencyViewModel(calculo + calculo * privateProfile.tax);
-            }
-
-            throw new Exception("Profile não encontrado");
+            return new CurrencyViewModel(valor);
         }
 
     }
