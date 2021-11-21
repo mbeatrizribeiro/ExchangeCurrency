@@ -9,7 +9,8 @@ using Refit;
 using System;
 using ExchangeCurrency.Api.Handlers.Interface;
 using ExchangeCurrency.Api.Handlers;
-using ExchangeCurrency.Api.Models;
+using ExchangeCurrency.Api.Service.Interface;
+using ExchangeCurrency.Api.Service;
 
 namespace ExchangeCurrency
 {

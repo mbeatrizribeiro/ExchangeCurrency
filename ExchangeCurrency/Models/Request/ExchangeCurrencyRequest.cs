@@ -1,13 +1,12 @@
 ﻿using ExchangeCurrency.Api.Models.Enums;
 using ExchangeCurrency.Api.Models.Response;
 using MediatR;
-using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace ExchangeCurrency.Api.Models.Request 
+namespace ExchangeCurrency.Api.Models.Request
 {
-    public class ExchangeCurrencyRequest : Attribute, IRequest<CurrencyViewModel>
+    public class ExchangeCurrencyRequest : IRequest<CurrencyViewModel>
     {
         [Required]
         [DisplayName("De")]

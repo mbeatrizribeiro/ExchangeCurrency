@@ -2,8 +2,9 @@
 using ExchangeCurrency.Api.Models.Request;
 using ExchangeCurrency.Api.Models.Enums;
 using System;
+using ExchangeCurrency.Api.Service.Interface;
 
-namespace ExchangeCurrency.Api.Models
+namespace ExchangeCurrency.Api.Service
 {
     public class TaxPerProfileService : ITaxPerProfileService
     {

@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Presentation", "01 - P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02- Tests", "02- Tests", "{C6F0193F-7E2A-4CCE-AC2A-F2BEBE0597CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeCurrency.Tests", "ExchangeCurrency.Tests\ExchangeCurrency.Tests.csproj", "{E7BF7C1E-2821-492E-AA59-A467AFF6BA73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeCurrency.Tests", "ExchangeCurrency.Tests\ExchangeCurrency.Tests.csproj", "{E7BF7C1E-2821-492E-AA59-A467AFF6BA73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

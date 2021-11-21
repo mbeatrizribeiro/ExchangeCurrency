@@ -1,5 +1,4 @@
-﻿using ExchangeCurrency.Api.Models.Request;
-using ExchangeCurrency.Api.Models.Response;
+﻿using ExchangeCurrency.Api.Models.Response;
 using Refit;
 using System.Threading.Tasks;
 

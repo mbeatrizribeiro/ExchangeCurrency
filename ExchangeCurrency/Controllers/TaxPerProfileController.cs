@@ -1,5 +1,5 @@
-﻿using ExchangeCurrency.Api.Models;
-using ExchangeCurrency.Api.Models.Request;
+﻿using ExchangeCurrency.Api.Models.Request;
+using ExchangeCurrency.Api.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExchangeCurrency.Api.Controllers

@@ -5,7 +5,7 @@ using ExchangeCurrency.Api.Models.Request;
 using MediatR;
 using System.Threading;
 using ExchangeCurrency.Api.Handlers.Interface;
-using ExchangeCurrency.Api.Models;
+using ExchangeCurrency.Api.Service.Interface;
 
 namespace ExchangeCurrency.Api.Handlers
 {

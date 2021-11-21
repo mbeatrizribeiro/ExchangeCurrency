@@ -1,7 +1,7 @@
 ﻿using ExchangeCurrency.Api.Models.Request;
 using ExchangeCurrency.Api.Models.Response;
 
-namespace ExchangeCurrency.Api.Models
+namespace ExchangeCurrency.Api.Service.Interface
 {
     public interface ITaxPerProfileService
     {
