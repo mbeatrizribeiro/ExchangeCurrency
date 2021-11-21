@@ -1,5 +1,8 @@
 # ExchangeCurrency
 
+## Versão
+* .NET 5
+
 ### Arquitetura de Projeto
 
 O padrão de arquitetura escolhido para o desenvolvimento do projeto foi o **Model-View-Controller**, utilizando a estrutura [ASP.NET](http://ASP.NET) Core MVC.
