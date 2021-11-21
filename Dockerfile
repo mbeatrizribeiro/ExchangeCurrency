@@ -1,9 +1,9 @@
-FROM microsoft/dotnet:5.0-aspnetcore:runtime
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
 
 LABEL version="1.0" maintainer="BeatrizRibeiro"
 
-WORKDIR /app
+COPY ExchangeCurrency/bin/Release/net5.0/publish .
 
-COPY ./src/ExchangeCurrency/dist .
+WORKDIR /App
 
-ENTRYPOINT [ "dotnet", "ExchangeCurrency.Api.dll" ]
+ENTRYPOINT ["dotnet", "ExchangeCurrency.Api.dll"]
