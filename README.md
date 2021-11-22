@@ -25,8 +25,6 @@ No mais, as outras pastas encontradas são:
 
 * **Handler**, possui a pasta de interface e a implementação do Handle, utilizado para garantir o Design Pattern de Comportamento Mediator.
 
-* **Service**, contém a implementação da classe TaxPerProfile. Esta, tem como objetivo respeitar e executar a regra proposta pelo desafio, onde os perfis de usuário permitem parametrização de taxas distintas.
-
 * **Integration**, que possui a interface para chamada da api ExchangeRate API. Foi escolhido o uso da biblioteca Refit.
 
 ### Principais Bibliotecas e Frameworks Utilizados
