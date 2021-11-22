@@ -55,5 +55,37 @@ namespace ExchangeCurrency.Tests
             //Assert
             Assert.Equal(resultado + (resultado * profile.Tax), response.Resultado);
         }
+
+        [Fact]
+        public void DadoUmaSolicitacaoConversaoSemPerfilIndicado_QuandoConverterMoeda_EntaoRetornarValorDaApiSemTaxas()
+        {
+            //Arrange
+            const decimal resultado = 2;
+
+            CurrencyViewModel response = new CurrencyViewModel(resultado)
+            {
+                Resultado = resultado
+            };
+
+            //Act
+            _exchangeCurrencyService.Handle(Arg.Any<ExchangeCurrencyRequest>(), Arg.Any<CancellationToken>()).Returns(response);
+
+            //Assert
+            Assert.Equal(resultado * (1 + 0), response.Resultado);
+        }
+
+        [Fact]
+        public void DadoUmaSolicitacaoConversaoComMoedaInexistente_QuandoGetCurrencyAsync_EntaoRetornarErroAoEncontrarMoeda()
+        {
+            //Arrange
+            const string symbolsErro = "";
+
+            //Act
+            var retorno = _exchangerateApi.GetCurrencyAsync(symbolsErro).Exception;
+
+            //Assert
+            Assert.Null(retorno);
+        }
+
     }
 }
