@@ -31,7 +31,7 @@ No mais, as outras pastas encontradas são:
 
 ### Principais Bibliotecas e Frameworks Utilizados
 
-* **Refit**, foi a biblioteca escolhida para me auxiliar na comunicação com o serviço do ExchangeRate, para conseguir os valores das moedas atualmente. Desta forma, o projeto reduz redundância no código; suposto que em outra escolha, sem a biblioteca, utilizaria um objeto HttpClient, obteria a URL, realizaria a requisição e deserializar o objeto. Com o refit, o processo foi simplificado, apenas por sua definição de interface.
+* **Refit**, foi a biblioteca escolhida para comunicação com o serviço do ExchangeRate, para conseguir os valores das moedas atualmente. Desta forma, o projeto reduz redundância no código; suposto que em outra escolha, sem a biblioteca, utilizaria um objeto HttpClient, obteria a URL, realizaria a requisição e deserializar o objeto. Com o refit, o processo foi simplificado, apenas por sua definição de interface.
 
 * **MediatR**, biblioteca utilizada para implementar o padrão de projeto comportamental Mediador. Utilizei-o para diminuição do acoplamento dos objetos, não sendo referidos um aos outros explicitamente. Toda comunicação entre os objetos são passadas pelo mediador.
 
@@ -43,4 +43,4 @@ No mais, as outras pastas encontradas são:
 
 * **CQRS**, o Comand Query Responsability Segregation, utilizado com o auxilio do MediatR, separando a leitura e escrita, com base em queries e commands. Apesar de não utilizar nenhuma DTO neste projeto em específico, todas as consultas estão isoladas das implementações de serviço, passando pelo mediador para se comunicarem. 
 
-* **Injeção de Dependência**, utilizado como uma técnica para alcançar o IoC (Inversão de Controle), entre as classes e suas dependências. (Microsoft, Injeção de Dependência no [ASP.NET](http://ASP.NET) CORE). Implementei este padrão no projeto tanto para facilitar os testes (códigos mais "testáveis"), quanto para me auxiliar a manter o princípio Dependency Inversion Principle, onde as dependências existentes no projeto vêm das abstrações, e não das implementações. Também o principio de Inversão de Dependência.
+* **Injeção de Dependência**, utilizado como uma técnica para alcançar o IoC (Inversão de Controle), entre as classes e suas dependências. (Microsoft, Injeção de Dependência no [ASP.NET](http://ASP.NET) CORE). Implementei este padrão no projeto tanto para facilitar os testes (códigos mais "testáveis"), quanto para me auxiliar a manter o princípio Dependency Inversion Principle, onde as dependências existentes no projeto vêm das abstrações, e não das implementações.
