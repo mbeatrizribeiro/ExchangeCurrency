@@ -9,8 +9,6 @@ using Refit;
 using System;
 using ExchangeCurrency.Api.Handlers.Interface;
 using ExchangeCurrency.Api.Handlers;
-using ExchangeCurrency.Api.Service.Interface;
-using ExchangeCurrency.Api.Service;
 
 namespace ExchangeCurrency
 {
@@ -27,7 +25,6 @@ namespace ExchangeCurrency
         {
             services.AddControllersWithViews();
             services.AddHttpClient();
-            services.AddScoped<ITaxPerProfileService, TaxPerProfileService>();
             services.AddScoped<IExchangeCurrencyRequestHandler, ExchangeCurrencyRequestHandler>();
             services.AddRefitClient<IExchangerateApi>()
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://api.exchangeratesapi.io/"));

@@ -20,6 +20,8 @@ namespace ExchangeCurrency.Api.Models.Request
         [DisplayName("Quantidade")]
         public decimal Amount { get; set; }
 
+        public decimal Tax { get; set; }
+
         public EnumProfile Profile { get; set; }
 
     }

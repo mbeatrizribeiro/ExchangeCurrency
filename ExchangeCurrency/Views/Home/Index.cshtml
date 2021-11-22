@@ -34,19 +34,6 @@
         </div>
     </header>
 
-    <!--Parametrizar taxas de conversão-->>
-    <section class="page-section bg-primary" id="parametrizar">
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="text-white mt-0">Parametrizar Taxas</h2>
-                    <hr class="divider divider-light" />
-                    <a class="btn btn-light btn-xl" asp-action="Index" asp-controller="TaxPerProfile"> Iniciar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Converter -->
     <section class="page-section" id="converter">
         <div class="container px-4 px-lg-5">
@@ -103,6 +90,13 @@
                                 <input type="radio" id="Private" name="Profile" value="@ExchangeCurrency.Api.Models.Enums.EnumProfile.Private">
                                 <label asp-for="Profile">Private</label><br><br>
                             </div>
+
+                            <div>
+
+                                <input class="form-control" type="text" placeholder="Valor da Taxa" aria-label="default input example" asp-for="Tax">
+
+                            </div>
+
                             <div>
                                 <button class="btn btn-primary" type="submit" id="converter" asp-action="Index" asp-controller="ConvertCurrency">
                                     Converter

@@ -5,19 +5,16 @@ using ExchangeCurrency.Api.Models.Request;
 using MediatR;
 using System.Threading;
 using ExchangeCurrency.Api.Handlers.Interface;
-using ExchangeCurrency.Api.Service.Interface;
 
 namespace ExchangeCurrency.Api.Handlers
 {
     public class ExchangeCurrencyRequestHandler : IExchangeCurrencyRequestHandler, IRequestHandler<ExchangeCurrencyRequest, CurrencyViewModel>
     {
         private readonly IExchangerateApi _exchangerateApi;
-        private readonly ITaxPerProfileService _taxPerProfileService;
 
-        public ExchangeCurrencyRequestHandler(IExchangerateApi exchangerateApi, ITaxPerProfileService taxPerProfileService)
+        public ExchangeCurrencyRequestHandler(IExchangerateApi exchangerateApi)
         {
             _exchangerateApi = exchangerateApi;
-            _taxPerProfileService = taxPerProfileService;
         }
 
 
@@ -25,21 +22,17 @@ namespace ExchangeCurrency.Api.Handlers
         {
             var retorno = await _exchangerateApi.GetCurrencyAsync($"{request.FromCurrency},{request.ToCurrency}");
 
-            TaxPerProfileResponse valorTaxa = new TaxPerProfileResponse()
-            {
-               Profile = request.Profile
-            };
-
-            var taxaProfile = _taxPerProfileService.GetTax(valorTaxa);
-                
-
             var calculo = retorno.Content.Rates[request.FromCurrency] * request.Amount / retorno.Content.Rates[request.ToCurrency];
 
-            var calculoItau = calculo * (1 + taxaProfile);
+            ProfileRequest profile = new ProfileRequest()
+            {
+                Profile = request.Profile,
+                Tax = request.Tax
+            };
 
-            var valor = decimal.Round(calculoItau, 2);
+            decimal calculoItau = calculo * (1 + profile.Tax);
 
-            return new CurrencyViewModel(valor);
+            return new CurrencyViewModel(decimal.Round(calculoItau, 2));
         }
 
     }
